@@ -1,0 +1,5 @@
+<div style="background-color:#ffffff; text-align: right; color: #ffffff; font-size: 14px; padding-bottom: 12px; padding-top: 12px;">
+    <a href="{{ url_for("problem_list") }}">Problem List</a>&nbsp;&nbsp;&nbsp;
+    <a href="{{ url_for("usr_status", id=current_user.username) }}">{{username}}</a>&nbsp;&nbsp;&nbsp;
+    <a href="{{ url_for("logout") }}">Logout</a>
+</div>

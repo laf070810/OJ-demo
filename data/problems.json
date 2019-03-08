@@ -1,0 +1,53 @@
+{
+    "1000": {
+        "id": 1000,
+        "name": "A+B Problem",
+        "time_limit": "1000ms",
+        "memory_limit": "10000kB",
+        "description": "aaa",
+        "input": "",
+        "output": "",
+        "sample_input": "",
+        "sample_output": "",
+        "hint": "",
+        "source": "",
+        "ratio": 100,
+        "ac_num": 3,
+        "submit_num": 3,
+        "time": "2019-3-7"
+    },
+    "1001": {
+        "id": 1001,
+        "name": "Exponentiation",
+        "time_limit": "1000ms",
+        "memory_limit": "10000kB",
+        "description": "bbb",
+        "input": "",
+        "output": "",
+        "sample_input": "",
+        "sample_output": "",
+        "hint": "",
+        "source": "",
+        "ratio": 100,
+        "ac_num": 2,
+        "submit_num": 2,
+        "time": "2019-3-7"
+    },
+    "1002": {
+        "id": 1002,
+        "name": "487-3279",
+        "time_limit": "1000ms",
+        "memory_limit": "10000kB",
+        "description": "ccc",
+        "input": "",
+        "output": "",
+        "sample_input": "",
+        "sample_output": "",
+        "hint": "",
+        "source": "",
+        "ratio": 100,
+        "ac_num": 3,
+        "submit_num": 3,
+        "time": "2019-3-7"
+    }
+}

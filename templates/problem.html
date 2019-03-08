@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block title %}Problem{% endblock %}
+
+{% block content %}
+    <table border="0" width="100%" background="{{ url_for('static', filename='img/background.jpg') }}">
+        <tbody>
+            <tr>
+                <td>
+                    <div class="ptt" lang="en-US">
+                        {{problem.name}}
+                    </div>
+                    <div class="plm">
+                        <table align="center">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <b>
+                                            Time Limit:
+                                        </b>
+                                        {{problem.time_limit}}
+                                    </td>
+                                    <td width="10px">
+                                    </td>
+                                    <td>
+                                        <b>
+                                            Memory Limit:
+                                        </b>
+                                        {{problem.memory_limit}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>
+                                            Total Submissions:
+                                        </b>
+                                        {{problem.submit_num}}
+                                    </td>
+                                    <td width="10px">
+                                    </td>
+                                    <td>
+                                        <b>
+                                            Accepted:
+                                        </b>
+                                        {{problem.ac_num}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="pst">
+                        Description
+                    </p>
+                    <div class="ptx" lang="en-US">
+                        {{problem.description}}
+                    </div>
+                    <p class="pst">
+                        Input
+                    </p>
+                    <div class="ptx" lang="en-US">
+                        {{problem.input}}
+                    </div>
+                    <p class="pst">
+                        Output
+                    </p>
+                    <div class="ptx" lang="en-US">
+                        {{problem.output}}
+                    </div>
+                    <p class="pst">
+                        Sample Input
+                    </p>
+                    <pre class="sio">
+                        {{problem.sample_input}}
+                    </pre>
+                    <p class="pst">
+                        Sample Output
+                    </p>
+                    <pre class="sio">
+                        {{problem.sample_output}}
+                    </pre>
+                    <p class="pst">
+                        Hint
+                    </p>
+                    <div class="ptx" lang="en-US">
+                        {{problem.hint}}
+                    </div>
+                    <p class="pst">
+                        Source
+                    </p>
+                    <div class="ptx" lang="en-US">
+                        {{problem.source}}
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p align="center">
+        <font color="#333399" size="3">
+            [
+            <a href="submit?id={{problem.id}}">
+                Submit
+            </a>
+            ]&nbsp;&nbsp; [
+            <a href="javascript:history.go(-1)">
+                Go Back
+            </a>
+            ]&nbsp;&nbsp; [
+            <a href="problem_status?id={{problem.id}}">
+                Status
+            </a>
+            ]
+        </font>
+    </p>
+{% endblock %}
