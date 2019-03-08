@@ -12,12 +12,12 @@ import threading
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
-PROBLEM_FILE = 'data/problems.json'
-ATTEMPTS_FILE = 'data/attempts.json'
-USER_CODE_DIR = 'user_code/'
-with open(PROBLEM_FILE) as f:
+PROBLEM_FILE = './data/problems.json'
+ATTEMPTS_FILE = './data/attempts.json'
+USER_CODE_DIR = './user_code/'
+with open(PROBLEM_FILE, encoding='utf-8') as f:
     problems = json.load(f)
-with open(ATTEMPTS_FILE) as f:
+with open(ATTEMPTS_FILE, encoding='utf-8') as f:
     attempts = json.load(f)
 next_run_id = max([int(i) for i in attempts.keys()]) + 1
 LANGUAGE_IDX2NAME = {'0': ('G++', '.cpp'), '1': ('GCC', ".c")}
@@ -82,7 +82,7 @@ def submit():
         language = request.form.get('language', '')
         if not os.path.exists(USER_CODE_DIR + current_user.username + '/'):
             os.mkdir(USER_CODE_DIR + current_user.username)
-        with open(USER_CODE_DIR + current_user.username + '/' + str(next_run_id) + LANGUAGE_IDX2NAME[language][1], 'w') as f:
+        with open(USER_CODE_DIR + current_user.username + '/' + str(next_run_id) + LANGUAGE_IDX2NAME[language][1], 'w', encoding='utf-8') as f:
             f.writelines(code.split('\n'))
 
         attempts[str(next_run_id)] = {
@@ -96,7 +96,7 @@ def submit():
             "code_length": str(len(code)) + 'B',
             "submit_time": time.strftime('%Y-%m-%d %H:%M:%S')
         }
-        with open(ATTEMPTS_FILE, 'w') as f:
+        with open(ATTEMPTS_FILE, 'w', encoding='utf-8') as f:
             json.dump(attempts, f, indent=4)
         threading.Thread(target=judge, args=[next_run_id]).start()
 
@@ -130,7 +130,7 @@ def show_source():
     language = attempts[run_id]['language']
     if attempts[run_id]['user_id'] != current_user.username:
         return 'Permission Denied'
-    with open(USER_CODE_DIR + current_user.username + '/' + run_id + LANGUAGE_IDX2NAME[LANGUAGE_NAME2IDX[language]][1]) as f:
+    with open(USER_CODE_DIR + current_user.username + '/' + run_id + LANGUAGE_IDX2NAME[LANGUAGE_NAME2IDX[language]][1], encoding='utf-8') as f:
         # 注意replace的顺序
         return f.read().replace('&', '&amp;').replace(' ', '&nbsp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;').replace("'", '&qpos;').replace('\n', '<br/>')
 
@@ -176,7 +176,7 @@ def update_problems():
         else:
             problems[problem_id]['ratio'] = 0
 
-    with open(PROBLEM_FILE, 'w') as f:
+    with open(PROBLEM_FILE, 'w', encoding='utf-8') as f:
         json.dump(problems, f, indent=4)
 
 
@@ -184,7 +184,7 @@ def judge(run_id: int):
     attempts[str(run_id)]['result'] = 'Accepted'
     attempts[str(run_id)]['memory'] = '1k'
     attempts[str(run_id)]['time'] = '10ms'
-    with open(ATTEMPTS_FILE, 'w') as f:
+    with open(ATTEMPTS_FILE, 'w', encoding='utf-8') as f:
         json.dump(attempts, f, indent=4)
 
 

@@ -6,7 +6,7 @@ import uuid
 
 # define profile.json constant, the file is used to
 # save user name and password_hash
-PROFILE_FILE = "data/profiles.json"
+PROFILE_FILE = "./data/profiles.json"
 
 
 class User(UserMixin):
