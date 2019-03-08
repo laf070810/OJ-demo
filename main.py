@@ -1,5 +1,6 @@
 from forms import LoginForm, SubmitForm
 from model import User
+from judge import check
 from flask import Flask, request, render_template, redirect, url_for
 from flask_wtf.csrf import CsrfProtect
 from flask_login import login_user, login_required
@@ -42,6 +43,10 @@ def load_user(user_id):
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(
+            request.args.get('next') or url_for('problem_list'))
+
     form = LoginForm()
     if form.validate_on_submit():
         user_name = request.form.get('username', None)
@@ -90,7 +95,6 @@ def submit():
         language = request.form.get('language', '')
         if not os.path.exists(USER_CODE_DIR + current_user.username + '/'):
             os.mkdir(USER_CODE_DIR + current_user.username)
-
         with open(USER_CODE_DIR + current_user.username + '/' + str(next_run_id) + LANGUAGE_IDX2NAME[language][1], 'w', encoding='utf-8') as f:
             f.writelines(code.split('\n'))
 
@@ -204,9 +208,32 @@ def update_problems():
 
 
 def judge(run_id: int):
+    language = attempts[str(run_id)]['language']
+    user_id = attempts[str(run_id)]['user_id']
+    problem_id = attempts[str(run_id)]['problem_id']
+    time_limit = int(''.join(list(filter(str.isdigit, problems[str(problem_id)]['time_limit']))))
+    memory_limit = int(''.join(list(filter(str.isdigit, problems[str(problem_id)]['memory_limit']))))
+
+    status, time, memory = check(USER_CODE_DIR + user_id + '/' + str(run_id) + LANGUAGE_IDX2NAME[LANGUAGE_NAME2IDX[language]][1], problem_id, time_limit, memory_limit)
+
+    if status[0] == 'Compilation Error':
+        attempts[str(run_id)]['result'] = 'Compilation Error'
+        attempts[str(run_id)]['time'] = time[0]
+        attempts[str(run_id)]['memory'] = memory[0]
+
+    for i in range(len(status)):
+        if status[i] != 'Accepted':
+            attempts[str(run_id)]['result'] = status[i]
+            attempts[str(run_id)]['time'] = time[i]
+            attempts[str(run_id)]['memory'] = memory[i]
+
+            with open(ATTEMPTS_FILE, 'w', encoding='utf-8') as f:
+                json.dump(attempts, f, indent=4)
+            return
+
     attempts[str(run_id)]['result'] = 'Accepted'
-    attempts[str(run_id)]['memory'] = '1k'
-    attempts[str(run_id)]['time'] = '10ms'
+    attempts[str(run_id)]['memory'] = time[0]
+    attempts[str(run_id)]['time'] = memory[0]
     with open(ATTEMPTS_FILE, 'w', encoding='utf-8') as f:
         json.dump(attempts, f, indent=4)
 

@@ -96,6 +96,8 @@ p.pst {
 pre.sio {
 	font-family:Courier New,Courier,monospace;
 	font-size:12pt;
+	background-color: transparent;
+	border: transparent;
 }
 th.h {
 	color:#FFFFFF;
