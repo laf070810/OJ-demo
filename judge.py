@@ -4,7 +4,7 @@ import subprocess
 import time
 
 CURRENT_PATH = os.getcwd() + os.path.sep
-SAMPLE_PATH = os.path.join(CURRENT_PATH, 'data', 'samples')
+SAMPLE_PATH = os.path.join(CURRENT_PATH, 'data', 'samples') + os.path.sep
 
 
 # 编译，错误信息输出到error.txt中
@@ -13,7 +13,7 @@ def compile(filename):
     compiler = {'c': 'gcc ', 'cpp': 'g++ '}
     os.system(
         compiler.get(pro) + filename + ' -o ' + name + ' > error.txt 2>&1')
-    if os.path.exists(name + '.exe'):
+    if os.path.exists(name):
         return True
     else:
         return False
@@ -59,7 +59,7 @@ def check(filename: str, n: int, time_limit: int, memory_limit: int) -> ([str], 
     '''
     Status, Time, Memory = [], [], []
     if compile(filename):
-        executable = CURRENT_PATH + filename.split('.')[0] + '.exe'
+        executable = CURRENT_PATH + filename.split("/")[-1].split('.')[0]
         inputs, outputs = get_samples(n)
         for i in range(len(inputs)):
             begin = time.perf_counter()
@@ -76,9 +76,8 @@ def check(filename: str, n: int, time_limit: int, memory_limit: int) -> ([str], 
             except subprocess.CalledProcessError:
                 Status.append('Runtime Error')
             end = time.perf_counter()
-            ans = [line.rstrip() for line in outputs[i].split("\n")]
-            out = [line.rstrip() for line in ret.stdout.split("\n")]
-            if ans != out:
+            if (ret.stdout.replace('\r\n', '\n').strip('\n') != outputs[i]
+                    and ret.stdout.replace('\r\n', '\n').strip('\n') + '\n' != outputs[i]):  # 忽略末尾换行
                 Status.append('Wrong Answer')
             else:
                 Status.append('Accepted')

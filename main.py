@@ -232,8 +232,8 @@ def judge(run_id: int):
             return
 
     attempts[str(run_id)]['result'] = 'Accepted'
-    attempts[str(run_id)]['memory'] = time[0]
-    attempts[str(run_id)]['time'] = memory[0]
+    attempts[str(run_id)]['memory'] = memory[0]
+    attempts[str(run_id)]['time'] = time[0]
     with open(ATTEMPTS_FILE, 'w', encoding='utf-8') as f:
         json.dump(attempts, f, indent=4)
 
