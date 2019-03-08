@@ -50,9 +50,11 @@ def login():
         user = User(user_name)
         if user.verify_password(password):
             login_user(user, remember=remember_me)
-            return redirect(request.args.get('next') or url_for('problem_list'))
+            return redirect(
+                request.args.get('next') or url_for('problem_list'))
         else:
-            return render_template('login.html', form=form, message='Bad username or password')
+            return render_template(
+                'login.html', form=form, message='Bad username or password')
     return render_template('login.html', form=form)
 
 
@@ -61,13 +63,19 @@ def login():
 @login_required
 def problem_list():
     update_problems()
-    return render_template('problem_list.html', username=current_user.username, problems=problems.values())
+    return render_template(
+        'problem_list.html',
+        username=current_user.username,
+        problems=problems.values())
 
 
 @app.route('/problem')
 @login_required
 def problem():
-    return render_template('problem.html', username=current_user.username, problem=problems.get(request.args.get('id')))
+    return render_template(
+        'problem.html',
+        username=current_user.username,
+        problem=problems.get(request.args.get('id')))
 
 
 @app.route('/submit', methods=['GET', 'POST'])
@@ -82,7 +90,9 @@ def submit():
         language = request.form.get('language', '')
         if not os.path.exists(USER_CODE_DIR + current_user.username + '/'):
             os.mkdir(USER_CODE_DIR + current_user.username)
-        with open(USER_CODE_DIR + current_user.username + '/' + str(next_run_id) + LANGUAGE_IDX2NAME[language][1], 'w') as f:
+        with open(
+                USER_CODE_DIR + current_user.username + '/' + str(next_run_id)
+                + LANGUAGE_IDX2NAME[language][1], 'w') as f:
             f.writelines(code.split('\n'))
 
         attempts[str(next_run_id)] = {
@@ -104,7 +114,10 @@ def submit():
         return redirect(url_for('usr_status', id=current_user.username))
 
     return render_template(
-        'submit.html', form=form, username=current_user.username, problem_id=request.args.get('id'))
+        'submit.html',
+        form=form,
+        username=current_user.username,
+        problem_id=request.args.get('id'))
 
 
 @app.route('/problem_status')
@@ -112,14 +125,20 @@ def submit():
 def prob_status():
     update_problems()
     problem_status = get_problem_status(int(request.args.get('id')))
-    return render_template('problem_status.html', username=current_user.username, attempts=problem_status.values())
+    return render_template(
+        'problem_status.html',
+        username=current_user.username,
+        attempts=problem_status.values())
 
 
 @app.route('/user_status')
 @login_required
 def usr_status():
     user_status = get_user_status(request.args.get('id'))
-    return render_template('user_status.html', username=current_user.username, attempts=user_status.values())
+    return render_template(
+        'user_status.html',
+        username=current_user.username,
+        attempts=user_status.values())
 
 
 @app.route('/show_source')
@@ -130,9 +149,12 @@ def show_source():
     language = attempts[run_id]['language']
     if attempts[run_id]['user_id'] != current_user.username:
         return 'Permission Denied'
-    with open(USER_CODE_DIR + current_user.username + '/' + run_id + LANGUAGE_IDX2NAME[LANGUAGE_NAME2IDX[language]][1]) as f:
+    with open(USER_CODE_DIR + current_user.username + '/' + run_id +
+              LANGUAGE_IDX2NAME[LANGUAGE_NAME2IDX[language]][1]) as f:
         # 注意replace的顺序
-        return f.read().replace('&', '&amp;').replace(' ', '&nbsp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;').replace("'", '&qpos;').replace('\n', '<br/>')
+        return f.read().replace('&', '&amp;').replace(' ', '&nbsp;').replace(
+            '<', '&lt;').replace('>', '&gt;').replace('"', '&quot;').replace(
+                "'", '&qpos;').replace('\n', '<br/>')
 
 
 @app.route('/logout')
@@ -172,7 +194,9 @@ def update_problems():
         problems[problem_id]['submit_num'] = submit_num.get(int(problem_id), 0)
         problems[problem_id]['ac_num'] = ac_num.get(int(problem_id), 0)
         if submit_num.get(int(problem_id), 0) != 0:
-            problems[problem_id]['ratio'] = (ac_num.get(int(problem_id), 0) * 100) // submit_num.get(int(problem_id), 0)
+            problems[problem_id]['ratio'] = (
+                ac_num.get(int(problem_id), 0) * 100) // submit_num.get(
+                    int(problem_id), 0)
         else:
             problems[problem_id]['ratio'] = 0
 
