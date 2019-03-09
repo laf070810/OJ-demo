@@ -110,7 +110,7 @@ def submit():
             "submit_time": time.strftime('%Y-%m-%d %H:%M:%S')
         }
         with open(ATTEMPTS_FILE, 'w', encoding='utf-8') as f:
-            json.dump(attempts, f, indent=4)
+            json.dump(attempts, f, indent=4, ensure_ascii=False)
         threading.Thread(target=judge, args=[next_run_id]).start()
 
         next_run_id += 1
@@ -204,38 +204,38 @@ def update_problems():
             problems[problem_id]['ratio'] = 0
 
     with open(PROBLEM_FILE, 'w', encoding='utf-8') as f:
-        json.dump(problems, f, indent=4)
+        json.dump(problems, f, indent=4, ensure_ascii=False)
 
 
 def judge(run_id: int):
     language = attempts[str(run_id)]['language']
     user_id = attempts[str(run_id)]['user_id']
     problem_id = attempts[str(run_id)]['problem_id']
-    time_limit = int(''.join(list(filter(str.isdigit, problems[str(problem_id)]['time_limit']))))
-    memory_limit = int(''.join(list(filter(str.isdigit, problems[str(problem_id)]['memory_limit']))))
+    time_limit = problems[str(problem_id)]['time_limit']
+    memory_limit = problems[str(problem_id)]['memory_limit']
 
     status, time, memory = check(USER_CODE_DIR + user_id + '/' + str(run_id) + LANGUAGE_IDX2NAME[LANGUAGE_NAME2IDX[language]][1], problem_id, time_limit, memory_limit)
 
     if status[0] == 'Compilation Error':
         attempts[str(run_id)]['result'] = 'Compilation Error'
-        attempts[str(run_id)]['time'] = time[0]
-        attempts[str(run_id)]['memory'] = memory[0]
+        attempts[str(run_id)]['time'] = str(time[0]) + 'ms'
+        attempts[str(run_id)]['memory'] = str(memory[0]) + 'KB'
 
     for i in range(len(status)):
         if status[i] != 'Accepted':
             attempts[str(run_id)]['result'] = status[i]
-            attempts[str(run_id)]['time'] = time[i]
-            attempts[str(run_id)]['memory'] = memory[i]
+            attempts[str(run_id)]['time'] = str(time[i]) + 'ms'
+            attempts[str(run_id)]['memory'] = str(memory[i]) + 'KB'
 
             with open(ATTEMPTS_FILE, 'w', encoding='utf-8') as f:
-                json.dump(attempts, f, indent=4)
+                json.dump(attempts, f, indent=4, ensure_ascii=False)
             return
 
     attempts[str(run_id)]['result'] = 'Accepted'
-    attempts[str(run_id)]['memory'] = memory[0]
-    attempts[str(run_id)]['time'] = time[0]
+    attempts[str(run_id)]['time'] = str(time[0]) + 'ms'
+    attempts[str(run_id)]['memory'] = str(memory[0]) + 'KB'
     with open(ATTEMPTS_FILE, 'w', encoding='utf-8') as f:
-        json.dump(attempts, f, indent=4)
+        json.dump(attempts, f, indent=4, ensure_ascii=False)
 
 
 if __name__ == '__main__':

@@ -85,6 +85,7 @@ div.plm {
 div.ptx {
 	font-family:"Times New Roman",Times,serif;
 	font-size:12pt;
+	padding: 9.5pt;
 }
 p.pst {
 	text-align:left;
@@ -92,12 +93,14 @@ p.pst {
 	font-size:18pt;
 	font-weight:bold;
 	color:blue;
+	padding: 9.5pt;
 }
 pre.sio {
 	font-family:Courier New,Courier,monospace;
 	font-size:12pt;
 	background-color: transparent;
 	border: transparent;
+	padding: 9.5pt;
 }
 th.h {
 	color:#FFFFFF;

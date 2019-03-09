@@ -18,7 +18,7 @@
                                         <b>
                                             Time Limit:
                                         </b>
-                                        {{- problem.time_limit -}}
+                                        {{- problem.time_limit -}}ms
                                     </td>
                                     <td width="10px">
                                     </td>
@@ -26,7 +26,7 @@
                                         <b>
                                             Memory Limit:
                                         </b>
-                                        {{- problem.memory_limit -}}
+                                        {{- problem.memory_limit -}}KB
                                     </td>
                                 </tr>
                                 <tr>
@@ -58,25 +58,25 @@
                         Input
                     </p>
                     <div class="ptx" lang="en-US">
-                        {{- problem.input -}}
+                        {{- problem.input | safe -}}
                     </div>
                     <p class="pst">
                         Output
                     </p>
                     <div class="ptx" lang="en-US">
-                        {{- problem.output -}}
+                        {{- problem.output | safe -}}
                     </div>
                     <p class="pst">
                         Sample Input
                     </p>
                     <pre class="sio">
-                        {{- problem.sample_input -}}
+                        {{- problem.sample_input | safe -}}
                     </pre>
                     <p class="pst">
                         Sample Output
                     </p>
                     <pre class="sio">
-                        {{- problem.sample_output -}}
+                        {{- problem.sample_output | safe -}}
                     </pre>
                     <p class="pst">
                         Hint

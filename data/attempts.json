@@ -4,7 +4,7 @@
         "user_id": "laf",
         "problem_id": 1000,
         "result": "Accepted",
-        "memory": "308k",
+        "memory": "308KB",
         "time": "10ms",
         "language": "G++",
         "code_length": "300B",
