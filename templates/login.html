@@ -8,30 +8,33 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-md-8">
-            <h1>DEPSAST Online Judge</h1>
-            <p class="lead">Department of Engineering Physics, Tsinghua University</p>
+        <div class="col">
+            <h1 class="text-center">DEPSAST Online Judge</h1>
+            <p class="lead text-center">Department of Engineering Physics, Tsinghua University</p>
             <hr>
         </div>
-
     </div>
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-md-9">
+        <div class="col">
             <pre id="frontpage-announcement"
                 style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;"
                 hidden=""></pre>
-            <h3>Welcome!</h3>
-            <h4>
+            <h3 class="text-center">Welcome!</h3>
+            <h4 class="text-center">
                 Come on, kids!
                 Believe in yourselves!
             </h4>
             {% if message %}
-            <p style="color:red">{{ message }}</p>
+            <p class="text-center text-danger">{{ message }}</p>
             {% endif %}
+            <br>
         </div>
-        <div class="well pull-left col-md-4" id="login-form-wrap">
+    </div>
+    <div class="row">
+        <div class="col"></div>
+        <div class="well pull-left col" id="login-form-wrap">
             <form method="post" role="form">
                 <div id="username" class="form-group">
                     <label for="inputUsername">Username</label>
@@ -55,6 +58,7 @@
                 {{ form.csrf_token }}
             </form>
         </div>
+        <div class="col"></div>
     </div>
 </div>
 

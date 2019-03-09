@@ -3,81 +3,83 @@
 {% block title %}User Status{% endblock %}
 
 {% block content %}
-<p align="center"><font size="4" color="#333399">User Status</font></p>
-<table cellspacing="0" cellpadding="0" width="100%" border="1" class="a" bordercolor="#FFFFFF">
-	<tbody>
-		<tr class="in">
-			<td width="8%">
-				Run ID
-			</td>
-			<td width="10%">
-				User
-			</td>
-			<td width="6%">
-				Problem
-			</td>
-			<td width="20%">
-				Result
-			</td>
-			<td width="7%">
-				Memory
-			</td>
-			<td width="7%">
-				Time
-			</td>
-			<td width="7%">
-				Language
-			</td>
-			<td width="7%">
-				Code Length
-			</td>
-			<td width="17%">
-				Submit Time
-			</td>
-		</tr>
-        {% for attempt in attempts %}
-		<tr align="center">
-			<td>
-				{{attempt.run_id}}
-			</td>
-			<td>
-				<a href="user_status?id={{attempt.user_id}}">
-					{{attempt.user_id}}
-				</a>
-			</td>
-			<td>
-				<a href="problem?id={{attempt.problem_id}}">
-					{{attempt.problem_id}}
-				</a>
-			</td>
-			<td>
-				<font color="blue">
+<div class="container">
+	<h1 class="text-center">User Status</h1>
+	<table class="table table-hover text-center">
+        <thead class="thead-light">
+			<tr>
+				<th width="8%">
+					Run ID
+				</th>
+				<th width="10%">
+					User
+				</th>
+				<th width="6%">
+					Problem
+				</th>
+				<th width="20%">
+					Result
+				</th>
+				<th width="7%">
+					Memory
+				</th>
+				<th width="7%">
+					Time
+				</th>
+				<th width="7%">
+					Language
+				</th>
+				<th width="7%">
+					Code Length
+				</th>
+				<th width="17%">
+					Submit Time
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for attempt in attempts %}
+			<tr>
+				<td>
+					{{attempt.run_id}}
+				</td>
+				<td>
+					<a href="user_status?id={{attempt.user_id}}">
+						{{attempt.user_id}}
+					</a>
+				</td>
+				<td>
+					<a href="problem?id={{attempt.problem_id}}">
+						{{attempt.problem_id}}
+					</a>
+				</td>
+				<td>
 					{{attempt.result}}
-				</font>
-			</td>
-			<td>
-				{{attempt.memory}}
-			</td>
-			<td>
-				{{attempt.time}}
-			</td>
-			<td>
-				{% if attempt.user_id == current_user.username %}
-				<a href="show_source?run_id={{attempt.run_id}}" target="_blank">
-					{{attempt.language}}
-				</a>
-				{% else %}
-					{{attempt.language}}
-				{% endif %}
-			</td>
-			<td>
-				{{attempt.code_length}}
-			</td>
-			<td>
-				{{attempt.submit_time}}
-			</td>
-		</tr>
-    {% endfor %}
-	</tbody>
-</table>
+				</td>
+				<td>
+					{{attempt.memory}}
+				</td>
+				<td>
+					{{attempt.time}}
+				</td>
+				<td>
+					{% if attempt.user_id == current_user.username %}
+					<a href="show_source?run_id={{attempt.run_id}}" target="_blank">
+						{{attempt.language}}
+					</a>
+					{% else %}
+						{{attempt.language}}
+					{% endif %}
+				</td>
+				<td>
+					{{attempt.code_length}}
+				</td>
+				<td>
+					{{attempt.submit_time}}
+				</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+</div>
 {% endblock %}

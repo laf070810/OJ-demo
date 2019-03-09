@@ -3,21 +3,36 @@
 {% block title %}Submit{% endblock %}
 
 {% block content %}
+<div class="container">
+    <h1 class="text-center">Submit Your Solution Via Web</h1><br><br>
     <form method="POST" action="{{ url_for("submit", id=problem_id) }}">
-        <div align="center"><font size="4" color="#333399">Submit Your Solution Via Web</font><br><br>
-            Problem ID:
-            <input type="text" name="problem_id" value="{{problem_id}}" size="20" accesskey="p" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAmJJREFUWAntV7uKIkEUvbYGM4KID3wEIgjKRLLpKGLgFwiCfslGhkb7IbLgAzE1GhMxWxRRBEEwmEgDERWfW6fXuttq60a2wU6B1qlzb9U5fatsKROJVigUArvd7oeAyePx6Af3qGYymT7F2h8Wi+V7Pp+fmE7iv4Sw81GieusKIzNh4puCJzdaHIagCW1F4KSeQ4O4pPLoPb/3INBGBZ7avgz8fxWIxWIUCoX43Blegbe3NwoGg88zwMoncFUB8Yokj8dDdrv9MpfHVquV/H4/iVcpc1qgKAp5vV6y2WxaWhefreB0OimXy6kGkD0YDKhSqdB2u+XJqVSK4vE4QWS5XKrx0WjEcZ/PR9lslhwOh8p1Oh2q1Wp0OBw4RwvOKpBOp1kcSdivZPLvmxrjRCKhiiOOSmQyGXp5ecFQbRhLcRDRaJTe39//BHW+2cDr6ysFAoGrlEgkwpwWS1I7z+VykdvtliHuw+Ew40vABvb7Pf6hLuMk/rGY02ImBZC8dqv04lpOYjaw2WzUPZcB2WMPZet2u1cmZ7MZTSYTNWU+n9N4PJbp3GvXYPIE2ADG9Xqder2e+kTr9ZqazSa1222eA6FqtUoQwqHCuFgscgWQWC6XaTgcEiqKQ9poNOiegbNfwWq1olKppB6yW6cWVcDHbDarIuzuBBaLhWrqVvwy/6wCMnhLXMbR4wnvtX/F5VxdAzJoRH+2BUYItlotmk6nLGW4gX6/z+IAT9+CLwPPr8DprnZ2MIwaQBsV+DBKUEfnQ8EtFRdFneBDKWhCW8EVGbdUQfxESR6qKhaHBrSgCe3fbLTpPlS70M0AAAAASUVORK5CYII=&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;"><br>
-            Language:
-            <select size="1" name="language" accesskey="l">
-                <option value="0">G++</option>
-                <option value="1" selected="">GCC</option>
-            </select><br>
-            Source: <br>
-            <textarea rows="30" name="source" id="source" cols="79" accesskey="c"></textarea><br>
-            {{ form.csrf_token }}
-            <input type="submit" value="Submit" name="submit" accesskey="s">
-            <input type="reset" value="Reset" name="reset">
-            <input type="hidden" value="1" name="encoded">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div class="form-group">
+                    Problem ID:&nbsp;
+                    <input type="text" class="form-control" name="problem_id" value="{{problem_id}}" size="20" accesskey="p">
+                </div>
+                <div class="form-group">
+                    Language:&nbsp;
+                    <select class="form-control" size="1" name="language" accesskey="l">
+                        <option value="0">G++</option>
+                        <option value="1" selected="">GCC</option>
+                    </select><br>
+                </div>
+                <div class="form-group">
+                    Source: <br>
+                    <textarea class="form-control" rows="20" name="source" id="source" cols="40" accesskey="c"></textarea><br>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="submit" value="Submit" name="submit" accesskey="s">
+                    <input class="form-control" type="reset" value="Reset" name="reset">
+                    <input class="form-control" type="hidden" value="1" name="encoded">
+                </div>
+            </div>
+            <div class="col-2"></div>
         </div>
+    {{ form.csrf_token }}
     </form>
+</div>
 {% endblock %}

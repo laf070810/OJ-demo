@@ -3,112 +3,110 @@
 {% block title %}Problem{% endblock %}
 
 {% block content %}
-    <table border="0" width="100%" background="{{ url_for('static', filename='img/background.jpg') }}">
-        <tbody>
-            <tr>
-                <td>
-                    <div class="ptt" lang="en-US">
-                        {{- problem.name -}}
-                    </div>
-                    <div class="plm">
-                        <table align="center">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <b>
-                                            Time Limit:
-                                        </b>
-                                        {{- problem.time_limit -}}ms
-                                    </td>
-                                    <td width="10px">
-                                    </td>
-                                    <td>
-                                        <b>
-                                            Memory Limit:
-                                        </b>
-                                        {{- problem.memory_limit -}}KB
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <b>
-                                            Total Submissions:
-                                        </b>
-                                        {{- problem.submit_num -}}
-                                    </td>
-                                    <td width="10px">
-                                    </td>
-                                    <td>
-                                        <b>
-                                            Accepted:
-                                        </b>
-                                        {{- problem.ac_num -}}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <p class="pst">
-                        Description
-                    </p>
-                    <div class="ptx" lang="en-US">
-                        {{- problem.description | safe -}}
-                    </div>
-                    <p class="pst">
-                        Input
-                    </p>
-                    <div class="ptx" lang="en-US">
-                        {{- problem.input | safe -}}
-                    </div>
-                    <p class="pst">
-                        Output
-                    </p>
-                    <div class="ptx" lang="en-US">
-                        {{- problem.output | safe -}}
-                    </div>
-                    <p class="pst">
-                        Sample Input
-                    </p>
-                    <pre class="sio">
-                        {{- problem.sample_input | safe -}}
-                    </pre>
-                    <p class="pst">
-                        Sample Output
-                    </p>
-                    <pre class="sio">
-                        {{- problem.sample_output | safe -}}
-                    </pre>
-                    <p class="pst">
-                        Hint
-                    </p>
-                    <div class="ptx" lang="en-US">
-                        {{- problem.hint -}}
-                    </div>
-                    <p class="pst">
-                        Source
-                    </p>
-                    <div class="ptx" lang="en-US">
-                        {{- problem.source -}}
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <p align="center">
-        <font color="#333399" size="3">
-            [
-            <a href="submit?id={{problem.id}}">
-                Submit
-            </a>
-            ]&nbsp;&nbsp; [
-            <a href="javascript:history.go(-1)">
-                Go Back
-            </a>
-            ]&nbsp;&nbsp; [
-            <a href="problem_status?id={{problem.id}}">
-                Status
-            </a>
-            ]
-        </font>
+<div class="container">
+    <h1 class="text-center">{{- problem.name -}}</h1>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">
+            <table class="table table-sm table-borderless text-center text-nowrap">
+                <tbody>
+                <tr>
+                    <td>
+                        <b>
+                            Time Limit:
+                        </b>
+                        {{- problem.time_limit -}}ms
+                    </td>
+                    <td width="10px">
+                    </td>
+                    <td>
+                        <b>
+                            Memory Limit:
+                        </b>
+                        {{- problem.memory_limit -}}KB
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>
+                            Total Submissions:
+                        </b>
+                        {{- problem.submit_num -}}
+                    </td>
+                    <td width="10px">
+                    </td>
+                    <td>
+                        <b>
+                            Accepted:
+                        </b>
+                        {{- problem.ac_num -}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+<div class="container">
+    <h2 class="text-primary">
+        Description
+    </h2>
+    <p>
+        {{- problem.description | safe -}}
     </p>
+    <h2 class="text-primary">
+        Input
+    </h2>
+    <p>
+        {{- problem.input | safe -}}
+    </p>
+    <h2 class="text-primary">
+        Output
+    </h2>
+    <p>
+        {{- problem.output | safe -}}
+    </p>
+    <h2 class="text-primary">
+        Sample Input
+    </h2>
+    <pre>
+        {{- problem.sample_input | safe -}}
+    </pre>
+    <h2 class="text-primary">
+        Sample Output
+    </h2>
+    <pre>
+        {{- problem.sample_output | safe -}}
+    </pre>
+    <h2 class="text-primary">
+        Hint
+    </h2>
+    <p>
+        {{- problem.hint -}}
+    </p>
+    <h2 class="text-primary">
+        Source
+    </h2>
+    <p>
+        {{- problem.source -}}
+    </p>
+</div>
+<div class="container">
+    <p class="text-center">
+        [
+        <a class="btn btn-link" href="submit?id={{problem.id}}">
+            Submit
+        </a>
+        ]&nbsp;&nbsp; [
+        <a class="btn btn-link" href="javascript:history.go(-1)">
+            Go Back
+        </a>
+        ]&nbsp;&nbsp; [
+        <a class="btn btn-link" href="problem_status?id={{problem.id}}">
+            Status
+        </a>
+        ]
+    </p>
+</div>
 {% endblock %}

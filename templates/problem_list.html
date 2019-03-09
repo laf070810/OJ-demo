@@ -3,16 +3,24 @@
 {% block title %}Problem List{% endblock %}
 
 {% block content %}
-    <table cellspacing="0" cellpadding="0" width="100%" border="1" class="a" bordercolor="#FFFFFF" style="text-align: center">
-        <tbody>
-            <tr class="in">
-                <td width="10%">ID</td><td width="63%">Title</td><td width="15%">Ratio(AC/submit)</td><td width="12%">Date</td>
+<div class="container">
+    <h1 class="text-center">Problem List</h1>
+    <table class="table table-hover text-center">
+        <thead class="thead-light">
+            <tr>
+                <th width="10%">ID</th>
+                <th width="63%">Title</th>
+                <th width="15%">Ratio(AC/submit)</th>
+                <th width="12%">Date</th>
             </tr>
+        </thead>
+        <tbody>
             {% for problem in problems %}
-                <tr align="center">
-                    <td>{{problem.id}}</td><td align="center"><a lang="en-US" href="problem?id={{problem.id}}">{{problem.name}}</a></td><td>{{problem.ratio}}%(<a href="problem_status?id={{problem.id}}">{{problem.ac_num}}</a>/<a href="problem_status?id={{problem.id}}">{{problem.submit_num}}</a>)</td><td>{{problem.time}}</td>
-                </tr>
+            <tr>
+                <td>{{problem.id}}</td><td align="center"><a lang="en-US" href="problem?id={{problem.id}}">{{problem.name}}</a></td><td>{{problem.ratio}}%(<a href="problem_status?id={{problem.id}}">{{problem.ac_num}}</a>/<a href="problem_status?id={{problem.id}}">{{problem.submit_num}}</a>)</td><td>{{problem.time}}</td>
+            </tr>
             {% endfor %}
         </tbody>
     </table>
+</div>
 {% endblock %}
